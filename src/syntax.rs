@@ -6,9 +6,9 @@ macro_rules! risp_unit_checker {
 }
 
 macro_rules! risp_item_transfer {
-    {(define $a:ident $b:tt)} => { let $a = risp!{$b}; };
-    {(begin $($a:tt)*)} => {{$(risp!{$a});*}};
-    {(lambda ($($a:tt)*) $b:tt)} => {(|$($a),*|risp!{$b})};
+    {(define $id:ident $v:tt)} => { let $id = risp!{$v}; };
+    {(begin $($item:tt)*)} => {{$(risp!{$item});*}};
+    {(lambda ($($para:tt)*) $item:tt)} => {(|$($para),*|risp!{$item})};
     
     {(if $cond:tt $t:tt)} => {if risp!{$cond} {risp!($t)}};
     {(if $cond:tt $t:tt $f:tt)} => {if risp!{$cond} {risp!($t)} else {risp!($f)}};
