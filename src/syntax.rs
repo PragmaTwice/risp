@@ -13,9 +13,9 @@ macro_rules! risp_item_transfer {
     {(if $cond:tt $t:tt)} => {if lisp!{$cond} {lisp!($t)}};
     {(if $cond:tt $t:tt $f:tt)} => {if lisp!{$cond} {lisp!($t)} else {lisp!($f)}};
     
-    {(loop $l:tt)} => {loop {lisp!($l)};
-    {(while $cond:tt $l:tt)} => {while lisp!{$cond} {lisp!($l)};
-    
+    {(loop $l:tt)} => {loop {lisp!($l)}};
+    {(while $cond:tt $l:tt)} => {while lisp!{$cond} {lisp!($l)}};
+
     {($fn:tt $($item:tt)*)} => {risp!($fn)($(risp!{$item}),*)};
 }
 
