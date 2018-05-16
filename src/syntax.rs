@@ -6,15 +6,15 @@ macro_rules! risp_unit_checker {
 }
 
 macro_rules! risp_item_transfer {
-    {(define $a:ident $b:tt)} => { let $a = lisp!{$b}; };
-    {(begin $($a:tt)*)} => {{$(lisp!{$a});*}};
-    {(lambda ($($a:tt)*) $b:tt)} => {(|$($a),*|lisp!{$b})};
+    {(define $a:ident $b:tt)} => { let $a = risp!{$b}; };
+    {(begin $($a:tt)*)} => {{$(risp!{$a});*}};
+    {(lambda ($($a:tt)*) $b:tt)} => {(|$($a),*|risp!{$b})};
     
-    {(if $cond:tt $t:tt)} => {if lisp!{$cond} {lisp!($t)}};
-    {(if $cond:tt $t:tt $f:tt)} => {if lisp!{$cond} {lisp!($t)} else {lisp!($f)}};
+    {(if $cond:tt $t:tt)} => {if risp!{$cond} {risp!($t)}};
+    {(if $cond:tt $t:tt $f:tt)} => {if risp!{$cond} {risp!($t)} else {risp!($f)}};
     
-    {(loop $l:tt)} => {loop {lisp!($l)}};
-    {(while $cond:tt $l:tt)} => {while lisp!{$cond} {lisp!($l)}};
+    {(loop $l:tt)} => {loop {risp!($l)}};
+    {(while $cond:tt $l:tt)} => {while risp!{$cond} {risp!($l)}};
 
     {($fn:tt $($item:tt)*)} => {risp!($fn)($(risp!{$item}),*)};
 }
