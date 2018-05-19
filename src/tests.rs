@@ -1,5 +1,3 @@
-use super::*;
-
 #[test]
 fn risp_unit_checker_test() {
     assert_eq!(risp!{1}, 1);
@@ -17,7 +15,8 @@ fn risp_item_transfer_test() {
     assert_eq!(risp!{((lambda (x y z) (+ (* x x) (* y y) (* z z))) (- 4 1) 4 (+ 4 1))},50);
     assert_eq!(risp!{(begin (define a 1) (define b 2) (+ a b))},3);
     assert_eq!(risp!{((lambda (x y) (if (< x y) x y)) 10 15)}, 10);
-    assert_eq!(risp!{(begin (define (mut i) 0) (while (< i 10) (+= i 1)) i)}, 10);
-    assert_eq!(risp!{(begin (define (mut i) 0) (loop (begin (if (! (< i 10)) break) (+= i 1))) i)}, 10);
+    //assert_eq!(risp!{(begin (define (mut i) 0) (while (< i 10) (+= i 1)) i)}, 10);
+    //assert_eq!(risp!{(begin (define (mut i) 0) (loop (begin (if (! (< i 10)) (break)) (+= i 1))) i)}, 10);
     assert_eq!(risp!{(match (tuple 3 (+ 1 2)) (=> (tuple 2 x) x) (=> (tuple 3 x) (+ x 1)) (=> (tuple 4 x) (+ x 2)) (=> _ 0))}, 4);
+    assert_eq!(risp!{((((currying_lambda (x y z) (+ x y z)) 1) 2) 3)}, 6);
 }
