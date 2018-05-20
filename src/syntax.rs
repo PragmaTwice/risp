@@ -13,11 +13,11 @@ macro_rules! risp_item_transfer {
 
     {(tuple $($v:tt)+)} => { ($(risp!($v),)+) };
 
-    {(mut $p:tt)} => { mut risp!($p) };
-    {(& $p:tt)} => { & risp!($p) };
-    {(&mut $p:tt)} => { &mut risp!($p) };
-    {(&& $p:tt)} => { && risp!($p) };
-    {(&&mut $p:tt)} => { &&mut risp!($p) };
+    {(mut $p:ident)} => { mut $p };
+    {(& $p:ident)} => { & $p };
+    {(&mut $p:ident)} => { &mut $p };
+    {(&& $p:ident)} => { && $p };
+    {(&&mut $p:ident)} => { &&mut $p };
 
     {(* $p:tt)} => {* risp!($p)};
 
