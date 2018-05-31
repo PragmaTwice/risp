@@ -4,20 +4,24 @@ trace_macros!(false);
 macro_rules! risp_unit_checker {
     ($unit:literal) => ($unit);
     ($unit:ident) => ($unit);
+
     (_) => (_);
 }
 
 #[macro_export]
-macro_rules! risp_item_transfer {    
-    {(define $p:tt $v:tt)} => { let risp!($p) = risp!{$v}; };
+macro_rules! risp_item_transfer {
+    {(let $p:tt $v:tt)} => { let risp!($p) = risp!{$v}; };
 
-    {(tuple $($v:tt)+)} => { ($(risp!($v),)+) };
+    //{(tuple $($v:tt)+)} => { ($(risp!($v),)+) };
+    {(tuple $v:tt)} => { (risp!($v),) };
+    {(tuple $v1:tt $($vn:tt)+)} => { (risp!($v1) $(,risp!($vn))+) };
 
     {(mut $p:ident)} => { mut $p };
-    {(& $p:ident)} => { & $p };
-    {(&mut $p:ident)} => { &mut $p };
-    {(&& $p:ident)} => { && $p };
-    {(&&mut $p:ident)} => { &&mut $p };
+
+    {(& $p:tt)} => { & risp!($p) };
+    {(&mut $p:tt)} => { &mut risp!($p) };
+    {(&& $p:tt)} => { && risp!($p) };
+    {(&&mut $p:tt)} => { &&mut risp!($p) };
 
     {(* $p:tt)} => {* risp!($p)};
 
